@@ -1,0 +1,12 @@
+.maincontainer{
+    /* width: 1350px; */
+    border: 2px solid rebeccapurple;
+}
+.container{
+    padding-top: 150px;
+    width: 40%;
+}
+.buttoncontainer{
+    display: flex;
+    justify-content: center;
+}
