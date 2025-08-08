@@ -1,7 +1,11 @@
+import BlogPost from "./BlogPost";
+
 function Home(params) {
+    
     return(
         <>
         <h1>Home</h1>
+       
         </>
     )
 }

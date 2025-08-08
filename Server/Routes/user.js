@@ -1,6 +1,8 @@
 const express = require("express");
 const User = require("../Modules/user");
+const verifypassword = require("../middlewares/auth");
 const router = express.Router();
+const jwt = require('jsonwebtoken')
 
 
 router.get('/signin', (req, res) => {
@@ -8,29 +10,35 @@ router.get('/signin', (req, res) => {
 })
 
 router.get('/signup', (req, res) => {
-   return res.send("singup")
+    return res.send("singup")
 })
 
-router.post('/login',async(req,res)=>{
-    const {email,password} = req.body;
-    const userExists = await User.findOne({email});
-    
-    //console.log("User Available :", userExists);
+router.post('/login', verifypassword, async (req, res) => {
+
+    const user = req.user;
+
+    const token = jwt.sign({
+        fullName:user.fullName,
+        userId: user._id,
+    }, "thisissecretkey", { expiresIn: "1h" });
+    console.log("Token generataed")
     res.status(200).json({
-        "message":"Data received form frontend"
-    })
-})
+        message: "Login Sucessfull",
+        token,
+        user
+    });
+});
 
 router.post('/signup', async (req, res) => {
     const { fullName, email, password } = req.body;
-    const userdata = await  User.create({
+    const userdata = await User.create({
         fullName,
         email,
         password
     });
-    console.log("Backend Receives Data "+userdata);
-    return res.status(200).json({"message":"User Registered Sucess"})
-  
+    console.log("Date Came to backend " + userdata);
+    return res.status(200).json({ "message": "User Registered Sucess" })
+    
 })
 
 module.exports = router;

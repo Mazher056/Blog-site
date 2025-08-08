@@ -23,6 +23,7 @@ function Register() {
             const result = await response.json()
             if(response.ok ){
                 console.log("Data sent from frontend to backend ", result.message)
+                
             }else{
 
                 console.log("Failed ",result)

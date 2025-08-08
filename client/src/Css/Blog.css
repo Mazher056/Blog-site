@@ -1,0 +1,23 @@
+.secondmaincontainer {
+    width: 50%;
+    margin: auto;
+    text-align: center;
+}
+
+.bloginput {
+    padding: 6px;
+    margin: 10px;
+}
+
+.inputcontainer {
+    margin: 20px 0px 0px 0px;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.blogsubmitbutton {
+    width: 50%;
+    margin: auto;
+    margin-top: 20px;
+}

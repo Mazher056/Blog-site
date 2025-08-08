@@ -1,36 +1,45 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import "../Css/Login.css"
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../Contextjs/AuthContext";
+
+
+
 
 function Login() {
+    const { login } = useContext(AuthContext);
     const [data, setdata] = useState({ email: "", password: "" });
-
+    const navigate = useNavigate();
     const handleOnchage = ((a) => {
         setdata({
             ...data,
             [a.target.name]: a.target.value
         })
-        ///console.log(data);
     })
     const handlesubmit = async (e) => {
         e.preventDefault();
-  //      console.log(data)
+
         try {
             const response = await fetch("http://localhost/login", {
                 method: "POST",
                 headers: {
-                    "Content-type": "application/json"
+                    "Content-type": "application/json",
                 },
                 body: JSON.stringify(data)
             });
+
             const result = await response.json();
-            console.log("messgae")
-            if(response.ok ){
-                console.log(result.message)
-            }else{
-              console.log("Failed ", result.message)
+            console.log(result)
+            if (response.ok) {
+                login(result.token);
+                console.log("Response received form backend ", result.message)
+                localStorage.setItem("token", result.token);
+                navigate("/");
+            } else {
+                console.log("Login Failed ")
             }
         } catch (e) {
-                console.log("Error during Login ", e);
+            console.log("Error during Login ", e);
         }
         setdata({ email: "", password: "" });
     }
@@ -39,6 +48,7 @@ function Login() {
             <div className="container">
 
                 <form className="loginform" >
+
 
                     <h1>Wellcome Back!</h1>
 
