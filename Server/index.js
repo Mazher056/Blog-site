@@ -11,7 +11,7 @@ const blogRoute = require("./Routes/blog");
 
 app.use(express.urlencoded({ extended: true }));
 app.use(cors())
-app.use(express.json()); // Add this to handle JSON requests
+app.use(express.json()); // Added this to handle JSON requests
 app.use(userRouter);
 app.use(blogRoute);
 
